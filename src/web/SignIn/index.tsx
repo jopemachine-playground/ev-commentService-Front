@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button, Alert } from "reactstrap";
+import { NavLink } from "react-router-dom"
 import "./SignIn.css";
 
 export default function SignIn() {
@@ -15,6 +16,12 @@ export default function SignIn() {
     event.preventDefault();
   }
 
+  function handleChange(event: React.SyntheticEvent<HTMLInputElement>){
+    return function (setter: (str: string) => (void)) {
+      setter(event.currentTarget.value);
+    }
+  }
+
   return (
     <div>
       <section>
@@ -23,17 +30,20 @@ export default function SignIn() {
         <Form>
           <FormGroup>
             <Label for={"ID"}>ID: </Label>
-            <Input value={ID} onChange={(e: React.SyntheticEvent<HTMLInputElement>) => setID(e.currentTarget.value)} type="text" name="ID" id="ID" placeholder={"write your ID"}></Input>
+            <Input value={ID} onChange={(e) => handleChange(e)(setID)} type="text" name="ID" id="ID" placeholder={"write your ID"}></Input>
           </FormGroup>
           <FormGroup>
             <Label for={"PW"}>PW: </Label>
-            <Input value={PW} onChange={(e: React.SyntheticEvent<HTMLInputElement>) => setPW(e.currentTarget.value)} type="password" name="PW" id="PW" placeholder={"write your PW"}></Input>
+            <Input value={PW} onChange={(e) => handleChange(e)(setPW)} type="password" name="PW" id="PW" placeholder={"write your PW"}></Input>
           </FormGroup>
         </Form>
 
         <Button color={"primary"} type={"submit"} onClick={handleSubmit}>
           로그인
         </Button>
+        <NavLink id="AnchorForSignUp" to="/SignUp" activeClassName="selected">
+          Sign Up
+        </NavLink>
       </section>
     </div>
   );
