@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, FormGroup } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import "./SignIn.css";
 
 export default function SignIn() {
@@ -21,19 +21,20 @@ export default function SignIn() {
         <p id="Title" className="lead">Login</p>
         <p id="Title-lead" className="lead">감정 분석 댓글 서비스를 이용하기 위해 로그인하세요.</p>
 
-        <form action="php-Action/SignInAction.php" onSubmit={handleSubmit} method="post">
-          <div className="form-group">
-            <label>ID </label>
-              <input type="text" name="ID" className="ID form-control" placeholder="ID를 입력하세요" required />
-          </div>
+        <Form>
+          <FormGroup>
+            <Label for="ID">ID: </Label>
+            <Input type="text" name="ID" id="ID" placeholder={"write your ID"}></Input>
+          </FormGroup>
+          <FormGroup>
+            <Label for="PW">PW: </Label>
+            <Input type="password" name="PW" id="PW" placeholder={"write your PW"}></Input>
+          </FormGroup>
+        </Form>
 
-          <div className="form-group">
-            <label>PW </label>
-            <input type="password" name="PW" className="PW form-control" placeholder="비밀번호를 입력하세요" required />
-          </div>
-
-          <button type="submit" className="btn btn-dark btn-block" >로그인</button>
-        </form>
+        <Button type="submit" className="btn btn-dark btn-block">
+          로그인
+        </Button>
       </section>
     </div>
   );
