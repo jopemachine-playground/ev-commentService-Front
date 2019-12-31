@@ -6,8 +6,7 @@ import "./SignIn.css";
 
 export default function SignIn() {
 
-  let history = useHistory();
-
+  const history = useHistory();
   const session = useSession();
 
   const [ID, setID] = useState<string>("");
