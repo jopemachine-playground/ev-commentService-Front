@@ -16,7 +16,7 @@ export default function SignIn() {
       () => {
         session.isAuthenticated && history.push("/URL-Register");
       }
-  );
+  , []);
 
   function validateForm() {
     return ID.length > 0 && PW.length > 0;

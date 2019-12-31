@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Alert, Form, FormGroup, Label, Input, Button } from "reactstrap";
 import axios from "axios";
 import "./SignUp.css";
-import {sign} from "crypto";
 
 export default function SignUp() {
 
