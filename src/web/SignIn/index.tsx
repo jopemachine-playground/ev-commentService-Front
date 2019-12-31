@@ -14,7 +14,7 @@ export default function SignIn() {
 
   useEffect(
       () => {
-        session.isAuthenticated && history.push("/test");
+        session.isAuthenticated && history.push("/URL-Register");
       }
   );
 
@@ -23,14 +23,14 @@ export default function SignIn() {
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
     let signIn = (ID: string) => {
-      event.preventDefault();
       session.setSession({ID : ID});
       return true;
     };
 
-    (validateForm() && signIn(event.currentTarget.value)) || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
+    validateForm() && signIn(event.currentTarget.value) || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
   }
 
   function handleChange(event: React.SyntheticEvent<HTMLInputElement>){

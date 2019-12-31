@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Alert, Form, FormGroup, Label, Input, Button } from "reactstrap";
+import axios from "axios";
 import "./SignUp.css";
+import {sign} from "crypto";
 
 export default function SignUp() {
 
@@ -14,8 +16,27 @@ export default function SignUp() {
   const [Address, setAddress] = useState<string>("");
   const [PhoneNumber, setPhoneNumber] = useState<string>("");
 
+  function validateForm() {
+    return ID.length > 0 && PW.length > 0 && PW === PWConfirm;
+  }
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    let signUp = () => {
+
+      axios({
+        headers: {'Access-Control-Allow-Origin': '*'},
+        method: 'post',
+        url: '',
+        data: {
+          ID, PW, LastName, FirstName, Email, Address, PhoneNumber
+        }
+      });
+      return true;
+    };
+
+    validateForm() && signUp() || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
   }
 
   function handleChange(event: React.SyntheticEvent<HTMLInputElement>){
