@@ -30,11 +30,11 @@ export default function SignIn() {
         <Form>
           <FormGroup>
             <Label for={"ID"}>ID: </Label>
-            <Input value={ID} onChange={(e) => handleChange(e)(setID)} type="text" name="ID" id="ID" placeholder={"write your ID"}></Input>
+            <Input value={ID} onChange={e => handleChange(e)(setID)} type="text" name="ID" id="ID" placeholder={"write your ID"}></Input>
           </FormGroup>
           <FormGroup>
             <Label for={"PW"}>PW: </Label>
-            <Input value={PW} onChange={(e) => handleChange(e)(setPW)} type="password" name="PW" id="PW" placeholder={"write your PW"}></Input>
+            <Input value={PW} onChange={e => handleChange(e)(setPW)} type="password" name="PW" id="PW" placeholder={"write your PW"}></Input>
           </FormGroup>
         </Form>
 
