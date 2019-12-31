@@ -33,7 +33,7 @@ export default function SignIn() {
     validateForm() && signIn(event.currentTarget.value) || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
   }
 
-  function handleChange(event: React.SyntheticEvent<HTMLInputElement>){
+  function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
     return function (setter: (str: string) => (void)) {
       setter(event.currentTarget.value);
     }

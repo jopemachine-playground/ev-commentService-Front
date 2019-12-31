@@ -33,19 +33,20 @@ export default function SignUp() {
           ID, PW, LastName, FirstName, Email, Address, PhoneNumber
         }
       });
+
       return true;
     };
 
     validateForm() && signUp() || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
   }
 
-  function handleChange(event: React.SyntheticEvent<HTMLInputElement>){
+  function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
     return function (setter: (str: string) => (void)) {
       setter(event.currentTarget.value);
     }
   }
 
-  return(
+  return (
     <div>
       <Alert color="light" isOpen={alertVisble} toggle={() => setAlertVisible(false)}>
         <strong>* </strong> 란은 필수입니다.
@@ -53,11 +54,11 @@ export default function SignUp() {
       <Form>
         <FormGroup>
           <Label for="ID">ID</Label>
-          <Input value={ID} onChange={e => handleChange(e)(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"4글자 이상 20자 미만으로 입력하세요."}/>
+          <Input value={ID} onChange={e => handleChange(e)(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
         </FormGroup>
         <FormGroup>
           <Label for="PW">PW</Label>
-          <Input value={PW} onChange={e => handleChange(e)(setPW)} type={"password"} name={"PW"} id={"PW"} placeholder={"4글자 이상 20자 미만으로 입력하세요."}/>
+          <Input value={PW} onChange={e => handleChange(e)(setPW)} type={"password"} name={"PW"} id={"PW"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
         </FormGroup>
         <FormGroup>
           <Label for="PW_Confirm">PW Confirm</Label>
