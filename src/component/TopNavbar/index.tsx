@@ -31,15 +31,23 @@ export default function TopNavbar() {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <NavLink href={"https://github.com/"}>PHP - Front, Backend 1</NavLink>
+                    <NavLink href={"https://github.com/cnu-ev/ev-commentService"}>PHP Server - Front, Backend 1</NavLink>
                   </DropdownItem>
                   <DropdownItem>
-                    <NavLink href={"https://github.com/"}>Django - Backend 2</NavLink>
+                    <NavLink href={"https://github.com/cnu-ev/ev-backend"}>Django - Backend 2</NavLink>
                   </DropdownItem>
                   <DropdownItem>
-                    <NavLink href={"https://github.com/"}>NodeJS - Backend 1</NavLink>
+                    <NavLink href={"https://github.com/cnu-ev/ev-sentiment_analysis"}>Emotion Analysis Module</NavLink>
                   </DropdownItem>
+
                   <DropdownItem divider />
+
+                  <DropdownItem>
+                    <NavLink href={"https://github.com/jopemachine/ev-commentService-Front"}>React - Front</NavLink>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavLink href={"https://github.com/jopemachine/ev-commentService-Backend"}>NodeJS - Backend 1</NavLink>
+                  </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
