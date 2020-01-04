@@ -3,6 +3,8 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { NavLink, useHistory } from "react-router-dom";
 import useSession from "react-session-hook";
 import "./SignIn.css";
+import API from "../API";
+import callAxios from "axios";
 
 export default function SignIn() {
 
@@ -25,12 +27,25 @@ export default function SignIn() {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    let signIn = (ID: string) => {
-      session.setSession({ID : ID});
-      return true;
+    let signInReq = () => {
+      callAxios({
+        headers: {'Access-Control-Allow-Origin': '*'},
+        method: 'post',
+        url: API.SignInRequest,
+        data: {
+          ID: ID,
+          PW: PW
+        }
+      })
+      .then(res => {
+        res.data.isValid !== 1 && alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
+      })
+      .catch(function(error){
+        console.log(error);
+      });
     };
 
-    validateForm() && signIn(event.currentTarget.value) || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
+    validateForm() && signInReq();
   }
 
   function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
