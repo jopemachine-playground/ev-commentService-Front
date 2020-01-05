@@ -14,12 +14,14 @@ export default function SignUp() {
   const [Email, setEmail] = useState<string>("");
   const [Address, setAddress] = useState<string>("");
   const [PhoneNumber, setPhoneNumber] = useState<string>("");
+  const [Gender, setGender] = useState<string>("");
+  const [ProfileImage, setProfileImage] = useState();
 
-  function validateForm() {
+  const validateForm = () => {
     return ID.length > 0 && PW.length > 0 && PW === PWConfirm;
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     let signUp = () => {
@@ -29,7 +31,7 @@ export default function SignUp() {
         method: 'post',
         url: '',
         data: {
-          ID, PW, LastName, FirstName, Email, Address, PhoneNumber
+          ID, PW, LastName, FirstName, Email, Address, PhoneNumber, Gender, ProfileImage
         }
       });
 
@@ -39,11 +41,17 @@ export default function SignUp() {
     validateForm() && signUp() || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
   }
 
-  function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    return function (setter: (str: string) => (void)) {
-      setter(event.currentTarget.value);
+  const handleChange = (eventMatcher: (e: any) => (any)) => {
+    return (event: any) => {
+      return (setter: (target: any) => (void)) => {
+        setter(eventMatcher(event));
+      }
     }
-  }
+  };
+
+  const handleStringChange = handleChange(e => { return e.currentTarget.value });
+
+  const handleImageChange = handleChange(e => { return e.target.files[0] });
 
   return (
     <div>
@@ -53,33 +61,33 @@ export default function SignUp() {
       <Form>
         <FormGroup>
           <Label for="ID">ID</Label>
-          <Input value={ID} onChange={e => handleChange(e)(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
+          <Input value={ID} onChange={e => handleStringChange(e)(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
         </FormGroup>
         <FormGroup>
           <Label for="PW">PW</Label>
-          <Input value={PW} onChange={e => handleChange(e)(setPW)} type={"password"} name={"PW"} id={"PW"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
+          <Input value={PW} onChange={e => handleStringChange(e)(setPW)} type={"password"} name={"PW"} id={"PW"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
         </FormGroup>
         <FormGroup>
           <Label for="PW_Confirm">PW Confirm</Label>
-          <Input value={PWConfirm} onChange={e => handleChange(e)(setPWConfirm)} type={"password"} name={"PW_Confirm"} id="PW_Confirm" />
+          <Input value={PWConfirm} onChange={e => handleStringChange(e)(setPWConfirm)} type={"password"} name={"PW_Confirm"} id="PW_Confirm" />
         </FormGroup>
         <FormGroup>
-          <Input value={LastName} onChange={e => handleChange(e)(setLastName)} type={"text"} name={"LastName"} id={"LastName"} placeholder={"성"} />
+          <Input value={LastName} onChange={e => handleStringChange(e)(setLastName)} type={"text"} name={"LastName"} id={"LastName"} placeholder={"성"} />
         </FormGroup>
         <FormGroup>
-          <Input value={FirstName} onChange={e => handleChange(e)(setFirstName)} type={"text"} name={"FirstName"} id={"FirstName"} placeholder={"이름"} />
+          <Input value={FirstName} onChange={e => handleStringChange(e)(setFirstName)} type={"text"} name={"FirstName"} id={"FirstName"} placeholder={"이름"} />
         </FormGroup>
         <FormGroup>
           <Label for="Email">이메일 주소</Label>
-          <Input value={Email} onChange={e => handleChange(e)(setEmail)} type={"email"} name={"Email"} id={"Email"} />
+          <Input value={Email} onChange={e => handleStringChange(e)(setEmail)} type={"email"} name={"Email"} id={"Email"} />
         </FormGroup>
         <FormGroup>
           <Label for="Address">주소</Label>
-          <Input value={Address} onChange={e => handleChange(e)(setAddress)} type={"text"} name={"Address"} id={"Address"} />
+          <Input value={Address} onChange={e => handleStringChange(e)(setAddress)} type={"text"} name={"Address"} id={"Address"} />
         </FormGroup>
         <FormGroup>
           <Label for="PhoneNumber">핸드폰 번호</Label>
-          <Input value={PhoneNumber} onChange={e => handleChange(e)(setPhoneNumber)} type={"text"} name={"PhoneNumber"} id={"PhoneNumber"} />
+          <Input value={PhoneNumber} onChange={e => handleStringChange(e)(setPhoneNumber)} type={"text"} name={"PhoneNumber"} id={"PhoneNumber"} />
         </FormGroup>
         <Button color={"primary"} type={"submit"} onClick={handleSubmit}>
           가입

@@ -20,11 +20,11 @@ export default function SignIn() {
       }
   , []);
 
-  function validateForm() {
+  const validateForm = () => {
     return ID.length > 0 && PW.length > 0;
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     let signInReq = () => {
@@ -48,11 +48,15 @@ export default function SignIn() {
     validateForm() && signInReq();
   }
 
-  function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    return function (setter: (str: string) => (void)) {
-      setter(event.currentTarget.value);
+  const handleChange = (eventMatcher: (e: any) => (any)) => {
+    return (event: any) => {
+      return (setter: (target: any) => (void)) => {
+        setter(eventMatcher(event));
+      }
     }
-  }
+  };
+
+  const handleStringChange = handleChange(e => { return e.currentTarget.value });
 
   return (
     <div>
@@ -62,11 +66,11 @@ export default function SignIn() {
         <Form>
           <FormGroup>
             <Label for={"ID"}>ID: </Label>
-            <Input value={ID} onChange={e => handleChange(e)(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"write your ID"} />
+            <Input value={ID} onChange={e => handleStringChange(e)(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"write your ID"} />
           </FormGroup>
           <FormGroup>
             <Label for={"PW"}>PW: </Label>
-            <Input value={PW} onChange={e => handleChange(e)(setPW)} type={"password"} name={"PW"} id={"PW"} placeholder={"write your PW"} />
+            <Input value={PW} onChange={e => handleStringChange(e)(setPW)} type={"password"} name={"PW"} id={"PW"} placeholder={"write your PW"} />
           </FormGroup>
         </Form>
 
