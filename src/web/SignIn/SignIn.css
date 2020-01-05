@@ -11,24 +11,15 @@ a.navbar-brand {
 .sizeUpOnHover:hover {
   transform: scale(1.35); }
 
-#FixedNavbar {
-  border-bottom: #f8fc25 3px solid;
-  background-color: #333333 !important; }
-
 #Copyright {
   font-family: 'Jeju Gothic';
   font-size: 12px;
   text-align: center;
-  color: #f2f2f2;
   width: 100%;
   bottom: 0px;
   background-color: #333333 !important; }
   #Copyright em {
     font-size: 12pt; }
-
-#Background {
-  
-  background-color: #e3e3e3 !important; }
 
 * {
   box-sizing: border-box;
@@ -40,7 +31,7 @@ a.navbar-brand {
   bottom: 0px;
   left: 0px; }
 
-#Title {
+#LoginTitle {
   font-size: 80px;
   color: #000000; }
 
@@ -56,4 +47,4 @@ a.navbar-brand {
   font-size: 30px;
   margin-top: 70px;
   display: block;
-  color: #ebf4ff; }
+  color: #000000; }

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
 import { NavLink, useHistory } from "react-router-dom";
 import useSession from "react-session-hook";
 import "./SignIn.css";
 import API from "../API";
-import callAxios from "axios";
+import axios from "axios";
 
 export default function SignIn() {
 
@@ -28,7 +28,7 @@ export default function SignIn() {
     event.preventDefault();
 
     let signInReq = () => {
-      callAxios({
+      axios({
         headers: {'Access-Control-Allow-Origin': '*'},
         method: 'post',
         url: API.SignInRequest,
@@ -59,9 +59,9 @@ export default function SignIn() {
   const handleStringChange = handleChange(e => { return e.currentTarget.value });
 
   return (
-    <div>
-      <section className={"Background"}>
-        <p id={"Title"} className={"lead"}>Login</p>
+    <Container id={"themed-container"} fluid="sm">
+      <section>
+        <p id={"LoginTitle"} className={"lead"}>Login</p>
         <p id={"Title-lead"} className={"lead"}>감정 분석 댓글 서비스를 이용하기 위해 로그인하세요.</p>
         <Form>
           <FormGroup>
@@ -81,7 +81,7 @@ export default function SignIn() {
           Sign Up
         </NavLink>
       </section>
-    </div>
+    </Container>
   );
 }
 

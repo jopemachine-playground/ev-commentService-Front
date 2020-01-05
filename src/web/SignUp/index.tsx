@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Alert, Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
 import axios from "axios";
 import "./SignUp.css";
 
@@ -54,7 +54,7 @@ export default function SignUp() {
   const handleImageChange = handleChange(e => { return e.target.files[0] });
 
   return (
-    <div>
+    <Container id={"themed-container"} fluid="sm">
       <Alert color="light" isOpen={alertVisble} toggle={() => setAlertVisible(false)}>
         <strong>* </strong> 란은 필수입니다.
       </Alert>
@@ -93,6 +93,6 @@ export default function SignUp() {
           가입
         </Button>
       </Form>
-    </div>
+    </Container>
   );
 }

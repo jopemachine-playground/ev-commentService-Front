@@ -1,4 +1,7 @@
+const rootURL = `http://localhost:8000`;
+
 export default {
-  SignInRequest : "http://localhost:8000/SignIn",
-  SignOutRequest : "http://localhost:8000/SignOut"
+  Root: rootURL,
+  SignInRequest : `${rootURL}/SignIn`,
+  SignOutRequest : `${rootURL}/SignOut`
 };
