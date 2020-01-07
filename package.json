@@ -16,6 +16,7 @@
     "@types/react-router": "^5.1.3",
     "@types/react-router-dom": "^5.1.3",
     "@types/reactstrap": "^8.2.0",
+    "@use-hook/use-cookie": "^0.1.4",
     "axios": "^0.19.0",
     "bootstrap": "^4.4.1",
     "node-sass": "^4.13.0",
@@ -27,7 +28,6 @@
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
-    "react-session-hook": "^2.0.1",
     "reactstrap": "^8.2.0",
     "typescript": "^3.7.4",
     "underscore": "^1.9.1"

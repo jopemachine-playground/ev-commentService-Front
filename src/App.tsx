@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import RouterApp from './web/RouterApp';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
-import { UseSessionProvider } from 'react-session-hook';
 import './App.css';
 
 const alertOption = {
@@ -25,13 +24,11 @@ const AlertTemplate = ({ style, options, message, close }) => (
 const App: React.FC = () => {
   return (
     <AlertProvider template={AlertTemplate} {...alertOption}>
-      <UseSessionProvider>
         <div className="App">
           <BrowserRouter>
           <RouterApp />
          </BrowserRouter>
         </div>
-      </UseSessionProvider>
     </AlertProvider>
   );
 }
