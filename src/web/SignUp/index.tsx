@@ -21,7 +21,7 @@ export default function SignUp() {
   const [PhoneNumber, setPhoneNumber] = useState<string>("");
   const [Gender, setGender] = useState<string>("");
 
-  const [ProfileImage, setProfileImage] = useState({preview: '', raw: ''});
+  const [ProfileImage, setProfileImage] = useState({ preview: '', raw: '' });
 
   const validateForm = () => {
     return ID.length > 0 && PW.length > 0 && PW === PWConfirm;
@@ -31,20 +31,25 @@ export default function SignUp() {
     event.preventDefault();
 
     let signUp = () => {
-
       const headerConfig = {
-        'content-type': 'multipart/form-data',
-        'Access-Control-Allow-Origin' : '*'
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
       };
 
-      axios({
-        headers: headerConfig,
-        method: 'post',
-        url: API.SignUpRequest,
-        data: {
-          ID, PW, LastName, FirstName, Email, Address, PhoneNumber, Gender, ProfileImage
-        }
-      });
+      const formData = new FormData();
+      formData.append('ID', ID);
+      formData.append('PW', PW);
+      formData.append('LastName', LastName);
+      formData.append('FirstName', FirstName);
+      formData.append('Email', Email);
+      formData.append('Address', Address);
+      formData.append('PhoneNumber', PhoneNumber);
+      formData.append('Gender', Gender);
+      formData.append('ProfileImage', ProfileImage.raw);
+
+      axios.post(API.SignUpRequest, formData, headerConfig);
+
       return true;
     };
     validateForm() && signUp() || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
