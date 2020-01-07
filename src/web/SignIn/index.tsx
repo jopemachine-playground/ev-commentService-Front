@@ -53,9 +53,9 @@ export default function SignIn() {
   }
 
   const handleChange = (eventMatcher: (e: any) => (any)) => {
-    return (event: any) => {
-      return (setter: (target: any) => (void)) => {
-        setter(eventMatcher(event));
+    return (setter: (target: any) => (void)) => {
+      return (event: any) => {
+        setter(event);
       }
     }
   };
@@ -70,11 +70,11 @@ export default function SignIn() {
         <Form>
           <FormGroup>
             <Label for={"ID"}>ID: </Label>
-            <Input value={ID} onChange={e => handleStringChange(e)(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"write your ID"} />
+            <Input value={ID} onChange={handleStringChange(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"write your ID"} />
           </FormGroup>
           <FormGroup>
             <Label for={"PW"}>PW: </Label>
-            <Input value={PW} onChange={e => handleStringChange(e)(setPW)} type={"password"} name={"PW"} id={"PW"} placeholder={"write your PW"} />
+            <Input value={PW} onChange={handleStringChange(setPW)} type={"password"} name={"PW"} id={"PW"} placeholder={"write your PW"} />
           </FormGroup>
         </Form>
 

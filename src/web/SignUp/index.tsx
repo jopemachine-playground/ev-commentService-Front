@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Alert, Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
 import axios from "axios";
 import "./SignUp.css";
+import { Image } from "react-konva";
+import Konva from 'konva';
+import useImage from "use-image";
+import _ from "underscore";
 
 export default function SignUp() {
 
@@ -12,10 +16,11 @@ export default function SignUp() {
   const [LastName, setLastName] = useState<string>("");
   const [FirstName, setFirstName] = useState<string>("");
   const [Email, setEmail] = useState<string>("");
-  const [Address, setAddress] = useState<string>("");
+  const [Address, setAddress] = useState<string >("");
   const [PhoneNumber, setPhoneNumber] = useState<string>("");
   const [Gender, setGender] = useState<string>("");
-  const [ProfileImage, setProfileImage] = useState();
+  const [ProfileImageURL, setProfileImageURL] = useState<string>("");
+  const [ProfileImage] = useImage(ProfileImageURL);
 
   const validateForm = () => {
     return ID.length > 0 && PW.length > 0 && PW === PWConfirm;
@@ -39,9 +44,9 @@ export default function SignUp() {
   }
 
   const handleChange = (eventMatcher: (e: any) => (any)) => {
-    return (event: any) => {
-      return (setter: (target: any) => (void)) => {
-        setter(eventMatcher(event));
+    return (setter: (target: any) => (void)) => {
+      return (event: any) => {
+        setter(event);
       }
     }
   };
@@ -52,42 +57,41 @@ export default function SignUp() {
 
   return (
     <Container id={"themed-container"} fluid="sm">
-      <Alert color="light" isOpen={alertVisble} toggle={() => setAlertVisible(false)}>
+      <Alert color="primary" isOpen={alertVisble} toggle={() => setAlertVisible(false)}>
         <strong>* </strong> 란은 필수입니다.
       </Alert>
+      <Image image={ProfileImage} />
       <Form>
         <FormGroup>
           <Label for="ID">ID</Label>
-          <Input value={ID} onChange={e => handleStringChange(e)(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
+          <Input value={ID} onChange={handleStringChange(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
         </FormGroup>
         <FormGroup>
           <Label for="PW">PW</Label>
-          <Input value={PW} onChange={e => handleStringChange(e)(setPW)} type={"password"} name={"PW"} id={"PW"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
+          <Input value={PW} onChange={handleStringChange(setPW)} type={"password"} name={"PW"} id={"PW"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
         </FormGroup>
         <FormGroup>
           <Label for="PW_Confirm">PW Confirm</Label>
-          <Input value={PWConfirm} onChange={e => handleStringChange(e)(setPWConfirm)} type={"password"} name={"PW_Confirm"} id="PW_Confirm" />
+          <Input value={PWConfirm} onChange={handleStringChange(setPWConfirm)} type={"password"} name={"PW_Confirm"} id={"PW_Confirm"} placeholder={"비밀번호를 확인하세요."}/>
         </FormGroup>
-        <Label>
-          이름
-        </Label>
+        <Label>이름</Label>
         <FormGroup>
-          <Input value={LastName} onChange={e => handleStringChange(e)(setLastName)} type={"text"} name={"LastName"} id={"LastName"} placeholder={"성"} />
+          <Input value={LastName} onChange={handleStringChange(setLastName)} type={"text"} name={"LastName"} id={"LastName"} placeholder={"성"} />
         </FormGroup>
         <FormGroup>
-          <Input value={FirstName} onChange={e => handleStringChange(e)(setFirstName)} type={"text"} name={"FirstName"} id={"FirstName"} placeholder={"이름"} />
+          <Input value={FirstName} onChange={handleStringChange(setFirstName)} type={"text"} name={"FirstName"} id={"FirstName"} placeholder={"이름"} />
         </FormGroup>
         <FormGroup>
           <Label for="Email">이메일 주소</Label>
-          <Input value={Email} onChange={e => handleStringChange(e)(setEmail)} type={"email"} name={"Email"} id={"Email"} />
+          <Input value={Email} onChange={handleStringChange(setEmail)} type={"email"} name={"Email"} id={"Email"} />
         </FormGroup>
         <FormGroup>
           <Label for="Address">주소</Label>
-          <Input value={Address} onChange={e => handleStringChange(e)(setAddress)} type={"text"} name={"Address"} id={"Address"} />
+          <Input value={Address} onChange={handleStringChange(setAddress)} type={"text"} name={"Address"} id={"Address"} />
         </FormGroup>
         <FormGroup>
           <Label for="PhoneNumber">핸드폰 번호</Label>
-          <Input value={PhoneNumber} onChange={e => handleStringChange(e)(setPhoneNumber)} type={"text"} name={"PhoneNumber"} id={"PhoneNumber"} />
+          <Input value={PhoneNumber} onChange={handleStringChange(setPhoneNumber)} type={"text"} name={"PhoneNumber"} id={"PhoneNumber"} />
         </FormGroup>
         <Button color={"primary"} type={"submit"} onClick={handleSubmit}>
           가입
