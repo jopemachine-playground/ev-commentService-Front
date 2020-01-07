@@ -25,7 +25,6 @@ export default function SignUp() {
     event.preventDefault();
 
     let signUp = () => {
-
       axios({
         headers: {'Access-Control-Allow-Origin': '*'},
         method: 'post',
@@ -34,10 +33,8 @@ export default function SignUp() {
           ID, PW, LastName, FirstName, Email, Address, PhoneNumber, Gender, ProfileImage
         }
       });
-
       return true;
     };
-
     validateForm() && signUp() || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
   }
 
@@ -71,6 +68,9 @@ export default function SignUp() {
           <Label for="PW_Confirm">PW Confirm</Label>
           <Input value={PWConfirm} onChange={e => handleStringChange(e)(setPWConfirm)} type={"password"} name={"PW_Confirm"} id="PW_Confirm" />
         </FormGroup>
+        <Label>
+          이름
+        </Label>
         <FormGroup>
           <Input value={LastName} onChange={e => handleStringChange(e)(setLastName)} type={"text"} name={"LastName"} id={"LastName"} placeholder={"성"} />
         </FormGroup>

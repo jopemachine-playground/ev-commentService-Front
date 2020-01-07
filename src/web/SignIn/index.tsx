@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from "react";
 import { Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
 import { NavLink, useHistory } from "react-router-dom";
-import useSession from "react-session-hook";
 import "./SignIn.css";
 import API from "../API";
 import axios from "axios";
+import { useLocalStorage } from "../../LocalStorage";
 
 export default function SignIn() {
 
   const history = useHistory();
-  const session = useSession();
+  const [userID, setUserID] = useLocalStorage('userID','');
 
   const [ID, setID] = useState<string>("");
   const [PW, setPW] = useState<string>("");
 
   useEffect(
       () => {
-        session.isAuthenticated && history.push("/URL-Register");
+        userID !== '' && history.push("/URL-Register");
       }
   , []);
 
@@ -38,7 +38,11 @@ export default function SignIn() {
         }
       })
       .then(res => {
-        res.data.isValid !== 1 && alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
+        if(res.data.isValid === 1) {
+          setUserID(ID);
+          history.push("/URL-Register");
+        }
+        else alert("ID나 비밀번호의 형식이 일치하지 않습니다.")
       })
       .catch(function(error){
         console.log(error);
