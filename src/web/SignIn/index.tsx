@@ -55,7 +55,7 @@ export default function SignIn() {
   const handleChange = (eventMatcher: (e: any) => (any)) => {
     return (setter: (target: any) => (void)) => {
       return (event: any) => {
-        setter(event);
+        setter(eventMatcher(event));
       }
     }
   };

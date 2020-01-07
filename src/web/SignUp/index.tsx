@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Alert, Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
 import axios from "axios";
 import "./SignUp.css";
-import { Image } from "react-konva";
-import Konva from 'konva';
-import useImage from "use-image";
+// import { Image } from "react-konva";
+// import Konva from 'konva';
+// import useImage from "use-image";
 import _ from "underscore";
+import API from "../API";
 
 export default function SignUp() {
 
@@ -19,8 +20,8 @@ export default function SignUp() {
   const [Address, setAddress] = useState<string >("");
   const [PhoneNumber, setPhoneNumber] = useState<string>("");
   const [Gender, setGender] = useState<string>("");
-  const [ProfileImageURL, setProfileImageURL] = useState<string>("");
-  const [ProfileImage] = useImage(ProfileImageURL);
+
+  const [ProfileImage, setProfileImage] = useState({preview: '', raw: ''});
 
   const validateForm = () => {
     return ID.length > 0 && PW.length > 0 && PW === PWConfirm;
@@ -30,10 +31,16 @@ export default function SignUp() {
     event.preventDefault();
 
     let signUp = () => {
+
+      const headerConfig = {
+        'content-type': 'multipart/form-data',
+        'Access-Control-Allow-Origin' : '*'
+      };
+
       axios({
-        headers: {'Access-Control-Allow-Origin': '*'},
+        headers: headerConfig,
         method: 'post',
-        url: '',
+        url: API.SignUpRequest,
         data: {
           ID, PW, LastName, FirstName, Email, Address, PhoneNumber, Gender, ProfileImage
         }
@@ -46,21 +53,33 @@ export default function SignUp() {
   const handleChange = (eventMatcher: (e: any) => (any)) => {
     return (setter: (target: any) => (void)) => {
       return (event: any) => {
-        setter(event);
+        setter(eventMatcher(event));
       }
     }
   };
 
   const handleStringChange = handleChange(e => { return e.currentTarget.value });
 
-  const handleImageChange = handleChange(e => { return e.target.files[0] });
+  const handleImageChange = handleChange(
+    e => { return { preview: URL.createObjectURL(e.target.files[0]), raw: e.target.files[0]} });
 
   return (
     <Container id={"themed-container"} fluid="sm">
       <Alert color="primary" isOpen={alertVisble} toggle={() => setAlertVisible(false)}>
         <strong>* </strong> 란은 필수입니다.
       </Alert>
-      <Image image={ProfileImage} />
+      {
+        ProfileImage.preview ?
+          <img src={ProfileImage.preview} width={"300"} height={"300"} /> :
+            <>
+              <span className="fa-stack fa-2x mt-3 mb-2">
+                <i className="fas fa-circle fa-stack-2x"></i>
+                <i className="fas fa-store fa-stack-1x fa-inverse"></i>
+              </span>
+              <h5 className="text-center">Upload your photo</h5>
+            </>
+      }
+      <input type="file" id="upload-button" onChange={handleImageChange(setProfileImage)}/>
       <Form>
         <FormGroup>
           <Label for="ID">ID</Label>
