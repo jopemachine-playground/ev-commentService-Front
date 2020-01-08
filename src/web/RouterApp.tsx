@@ -1,9 +1,10 @@
 import React from 'react';
-import {Switch, Route, Router} from 'react-router-dom';
+import { Switch, Route, Router } from 'react-router-dom';
 import SignIn from './SignIn';
 import SignUp from "./SignUp";
 import TopNavbar from '../component/TopNavbar'
-import {createBrowserHistory} from "history";
+import { createBrowserHistory } from "history";
+import URLRegister from "./URL-Register";
 
 export default function RouterApp() {
 
@@ -14,7 +15,7 @@ export default function RouterApp() {
       <Route exact path={"/"} component={SignIn} />
       <Route exact path={"/SignIn"} component={SignIn} />
       <Route exact path={"/SignUp"} component={SignUp} />
-      <Route exact path={"/URL-Register"} component={SignIn} />
+      <Route exact path={"/URL-Register"} component={URLRegister} />
       <Route exact path={"/CommentManagementService"} component={SignIn} />
     </Router>
   );

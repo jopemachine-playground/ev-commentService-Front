@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { Alert, Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
 import axios from "axios";
 import "./SignUp.css";
-// import { Image } from "react-konva";
-// import Konva from 'konva';
-// import useImage from "use-image";
 import _ from "underscore";
 import API from "../API";
+import { useHistory } from "react-router";
+import * as R from "ramda";
 
 export default function SignUp() {
 
-  const [alertVisble, setAlertVisible] = useState<boolean>(true);
+  const history = useHistory();
+
+  const [AlertVisble, setAlertVisible] = useState<boolean>(true);
   const [ID, setID] = useState<string>("");
   const [PW, setPW] = useState<string>("");
   const [PWConfirm, setPWConfirm] = useState<string>("");
@@ -27,13 +28,14 @@ export default function SignUp() {
     return ID.length > 0 && PW.length > 0 && PW === PWConfirm;
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     let signUp = () => {
       const headerConfig = {
         headers: {
-          'content-type': 'multipart/form-data'
+          'content-type': 'multipart/form-data',
+          'Access-Control-Allow-Origin': '*'
         }
       };
 
@@ -48,34 +50,45 @@ export default function SignUp() {
       formData.append('Gender', Gender);
       formData.append('ProfileImage', ProfileImage.raw);
 
-      axios.post(API.SignUpRequest, formData, headerConfig);
+      axios.post(API.SignUpRequest, formData, headerConfig)
+        .then(res => {
+          if(res.data.SUCCESS) {
+            alert('회원가입에 성공하였습니다!');
+            history.push('/SignIn');
+          }
+          else if (res.data.DUP_ENTRY) {
+            alert('중복된 ID 입니다.');
+          }
+          else if(res.data.FILE_SIZE_OVER) {
+            alert('파일 크기가 16MB를 초과하였습니다.');
+          }
+        });
 
       return true;
     };
     validateForm() && signUp() || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
   }
 
-  const handleChange = (eventMatcher: (e: any) => (any)) => {
-    return (setter: (target: any) => (void)) => {
-      return (event: any) => {
-        setter(eventMatcher(event));
-      }
-    }
-  };
+  const handleChange = R.curry((
+    eventMatcher: (e: any) => (any),
+    setter: (target: any) => (void),
+    event: any) =>
+      R.compose(setter, eventMatcher)(event)
+  );
 
-  const handleStringChange = handleChange(e => { return e.currentTarget.value });
+  const handleStringChange = handleChange(e => e.currentTarget.value);
 
   const handleImageChange = handleChange(
     e => { return { preview: URL.createObjectURL(e.target.files[0]), raw: e.target.files[0]} });
 
   return (
     <Container id={"themed-container"} fluid="sm">
-      <Alert color="primary" isOpen={alertVisble} toggle={() => setAlertVisible(false)}>
+      <Alert color={"primary"} isOpen={AlertVisble} toggle={() => setAlertVisible(false)}>
         <strong>* </strong> 란은 필수입니다.
       </Alert>
       {
         ProfileImage.preview ?
-          <img src={ProfileImage.preview} width={"300"} height={"300"} /> :
+          <img src={ProfileImage.preview} width={"150"} height={"150"} /> :
             <>
               <span className="fa-stack fa-2x mt-3 mb-2">
                 <i className="fas fa-circle fa-stack-2x"></i>
@@ -84,7 +97,7 @@ export default function SignUp() {
               <h5 className="text-center">Upload your photo</h5>
             </>
       }
-      <input type="file" id="upload-button" onChange={handleImageChange(setProfileImage)}/>
+      <input type="file" id="upload-button" onChange={handleImageChange(setProfileImage)} />
       <Form>
         <FormGroup>
           <Label for="ID">ID</Label>
@@ -96,7 +109,7 @@ export default function SignUp() {
         </FormGroup>
         <FormGroup>
           <Label for="PW_Confirm">PW Confirm</Label>
-          <Input value={PWConfirm} onChange={handleStringChange(setPWConfirm)} type={"password"} name={"PW_Confirm"} id={"PW_Confirm"} placeholder={"비밀번호를 확인하세요."}/>
+          <Input value={PWConfirm} onChange={handleStringChange(setPWConfirm)} type={"password"} name={"PW_Confirm"} id={"PW_Confirm"} placeholder={"비밀번호를 확인하세요."} />
         </FormGroup>
         <Label>이름</Label>
         <FormGroup>
