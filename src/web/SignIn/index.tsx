@@ -5,20 +5,19 @@ import "./SignIn.css";
 import API from "../API";
 import axios from "axios";
 import { useLocalStorage } from "../../LocalStorage";
-import _ from "underscore";
 import * as R from "ramda";
 
 export default function SignIn() {
 
   const history = useHistory();
-  const [IDSession, setIDSession] = useLocalStorage('userID','');
+  const [token, setTokenSession] = useLocalStorage('token',null);
 
   const [ID, setID] = useState<string>("");
   const [PW, setPW] = useState<string>("");
 
   useEffect(
       () => {
-        IDSession !== '' && history.push("/URL-Register");
+        token !== null && history.push("/URL-Register");
       }
   , []);
 
@@ -30,22 +29,21 @@ export default function SignIn() {
     event.preventDefault();
 
     let signInReq = () => {
-      axios({
-        headers: {'Access-Control-Allow-Origin': '*'},
-        method: 'post',
-        url: API.SignInRequest,
-        data: { ID, PW }
-      })
-      .then(res => {
-        if(res.data.VALID) {
-          setIDSession(ID);
-          history.push("/URL-Register");
-        }
-        else alert("ID나 비밀번호의 형식이 일치하지 않습니다.")
-      })
-      .catch(function(error){
-        console.log(error);
-      });
+      const formData = new FormData();
+
+      formData.append('ID', ID);
+      formData.append('PW', PW);
+
+      fetch(API.SignInRequest, { method: 'post', body: formData })
+        .then(res => res.json())
+        .then(res => {
+          if(res.VALID){
+            setTokenSession(res.token);
+            history.push("URL-Register");
+          }
+          else alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
+        })
+        .catch(error => console.log(error));
     };
 
     validateForm() && signInReq();

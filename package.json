@@ -19,6 +19,7 @@
     "@use-hook/use-cookie": "^0.1.4",
     "axios": "^0.19.0",
     "bootstrap": "^4.4.1",
+    "fxjs": "^0.15.0",
     "konva": "^4.1.0",
     "node-sass": "^4.13.0",
     "ramda": "^0.26.1",
