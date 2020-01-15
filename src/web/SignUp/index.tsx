@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, createRef } from "react";
 import { Alert, Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
 import axios from "axios";
 import "./SignUp.css";
@@ -12,7 +12,10 @@ export default function SignUp() {
   const history = useHistory();
 
   const [AlertVisble, setAlertVisible] = useState<boolean>(true);
+
   const [ID, setID] = useState<string>("");
+  const IDRef = createRef<HTMLInputElement>();
+  
   const [PW, setPW] = useState<string>("");
   const [PWConfirm, setPWConfirm] = useState<string>("");
   const [LastName, setLastName] = useState<string>("");
@@ -23,6 +26,10 @@ export default function SignUp() {
   const [Gender, setGender] = useState<string>("");
 
   const [ProfileImage, setProfileImage] = useState({ preview: '', raw: '' });
+
+  useEffect(() => {
+    IDRef.current!.focus();
+  }, []);
 
   const validateForm = () => {
     return ID.length > 0 && PW.length > 0 && PW === PWConfirm;
@@ -101,7 +108,7 @@ export default function SignUp() {
       <Form>
         <FormGroup>
           <Label for={"ID"}>ID</Label>
-          <Input value={ID} onChange={handleStringChange(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
+          <Input innerRef={IDRef} value={ID} onChange={handleStringChange(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
         </FormGroup>
         <FormGroup>
           <Label for={"PW"}>PW</Label>
