@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Route, Router } from 'react-router-dom';
 import SignIn from './SignIn';
 import SignUp from "./SignUp";
-import TopNavbar from '../component/TopNavbar'
 import { createBrowserHistory } from "history";
 import URLRegister from "./URL-Register";
 
@@ -22,10 +21,9 @@ export default function RouterApp() {
 
   return (
     <div>
-      <TopNavbar />
       <Switch>
         {routes}
       </Switch>
     </div>
   );
-};
+}

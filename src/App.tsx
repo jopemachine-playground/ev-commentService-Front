@@ -24,11 +24,11 @@ const AlertTemplate = ({ style, options, message, close }) => (
 const App: React.FC = () => {
   return (
     <AlertProvider template={AlertTemplate} {...alertOption}>
-        <div className="App">
-          <BrowserRouter>
+      <div className="App">
+        <BrowserRouter>
           <RouterApp />
-         </BrowserRouter>
-        </div>
+        </BrowserRouter>
+      </div>
     </AlertProvider>
   );
 }

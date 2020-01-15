@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Container, Jumbotron } from "reactstrap";
 
 function entry({ blogTitle, blogURL, blogID }) {

@@ -6,7 +6,6 @@ import _ from "underscore";
 import axios from "axios";
 import API from "../API";
 import Entry from "./entry";
-import R from "ramda";
 import TopNavbar from '../../component/TopNavbar'
 
 export default function URLRegister() {
@@ -38,7 +37,7 @@ export default function URLRegister() {
     , []);
 
   const addService = () => {
-    
+    console.log("test");
   };
 
   const deleteService = () => {
@@ -47,7 +46,7 @@ export default function URLRegister() {
 
   return (
     <>
-      <TopNavbar />
+      <TopNavbar icons={[{ iconStr: "Add Service", clickHandler: addService }]} />
       <Container id={"themed-container"} fluid={"sm"}>
         {entrys.map((entry, index) => (
           <Entry

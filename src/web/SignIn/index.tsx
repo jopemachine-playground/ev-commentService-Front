@@ -53,9 +53,11 @@ export default function SignIn() {
 
   const handleStringChange = handleChange(e => e.currentTarget.value);
 
+  console.log("dd");
+
   return (
     <>
-      <TopNabar />
+      <TopNavbar />
       <Container id={"themed-container"} fluid={"sm"}>
         <section>
           <p id={"LoginTitle"} className={"lead"}>
