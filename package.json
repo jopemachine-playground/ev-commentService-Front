@@ -44,7 +44,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "no-unused-expressions": 0
+    }
   },
   "browserslist": {
     "production": [

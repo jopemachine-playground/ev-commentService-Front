@@ -6,6 +6,7 @@ import _ from "underscore";
 import API from "../API";
 import { useHistory } from "react-router";
 import * as R from "ramda";
+import TopNavbar from '../../component/TopNavbar'
 
 export default function SignUp() {
 
@@ -89,58 +90,123 @@ export default function SignUp() {
     e => { return { preview: URL.createObjectURL(e.target.files[0]), raw: e.target.files[0]} });
 
   return (
-    <Container id={"themed-container"} fluid={"sm"}>
-      <Alert color={"primary"} isOpen={AlertVisble} toggle={() => setAlertVisible(false)}>
-        <strong>* </strong> 란은 필수입니다.
-      </Alert>
-      {
-        ProfileImage.preview ?
-          <img src={ProfileImage.preview} width={"150"} height={"150"} /> :
-            <>
-              <span className={"fa-stack fa-2x mt-3 mb-2"}>
-                <i className={"fas fa-circle fa-stack-2x"}></i>
-                <i className={"fas fa-store fa-stack-1x fa-inverse"}></i>
-              </span>
-              <h5 className={"text-center"}>Upload your photo</h5>
-            </>
-      }
-      <input type={"file"} id={"upload-button"} onChange={handleImageChange(setProfileImage)} />
-      <Form>
-        <FormGroup>
-          <Label for={"ID"}>ID</Label>
-          <Input innerRef={IDRef} value={ID} onChange={handleStringChange(setID)} type={"text"} name={"ID"} id={"ID"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
-        </FormGroup>
-        <FormGroup>
-          <Label for={"PW"}>PW</Label>
-          <Input value={PW} onChange={handleStringChange(setPW)} type={"password"} name={"PW"} id={"PW"} placeholder={"4글자 이상 20자 미만으로 입력하세요."} />
-        </FormGroup>
-        <FormGroup>
-          <Label for={"PW_Confirm"}>PW Confirm</Label>
-          <Input value={PWConfirm} onChange={handleStringChange(setPWConfirm)} type={"password"} name={"PW_Confirm"} id={"PW_Confirm"} placeholder={"비밀번호를 확인하세요."} />
-        </FormGroup>
-        <Label>이름</Label>
-        <FormGroup>
-          <Input value={LastName} onChange={handleStringChange(setLastName)} type={"text"} name={"LastName"} id={"LastName"} placeholder={"성"} />
-        </FormGroup>
-        <FormGroup>
-          <Input value={FirstName} onChange={handleStringChange(setFirstName)} type={"text"} name={"FirstName"} id={"FirstName"} placeholder={"이름"} />
-        </FormGroup>
-        <FormGroup>
-          <Label for={"Email"}>이메일 주소</Label>
-          <Input value={Email} onChange={handleStringChange(setEmail)} type={"email"} name={"Email"} id={"Email"} />
-        </FormGroup>
-        <FormGroup>
-          <Label for={"Address"}>주소</Label>
-          <Input value={Address} onChange={handleStringChange(setAddress)} type={"text"} name={"Address"} id={"Address"} />
-        </FormGroup>
-        <FormGroup>
-          <Label for={"PhoneNumber"}>핸드폰 번호</Label>
-          <Input value={PhoneNumber} onChange={handleStringChange(setPhoneNumber)} type={"text"} name={"PhoneNumber"} id={"PhoneNumber"} />
-        </FormGroup>
-        <Button color={"primary"} type={"submit"} onClick={handleSubmit}>
-          가입
-        </Button>
-      </Form>
-    </Container>
+    <>
+      <TopNavbar />
+      <Container id={"themed-container"} fluid={"sm"}>
+        <Alert
+          color={"primary"}
+          isOpen={AlertVisble}
+          toggle={() => setAlertVisible(false)}
+        >
+          <strong>* </strong> 란은 필수입니다.
+        </Alert>
+        {ProfileImage.preview ? (
+          <img src={ProfileImage.preview} width={"150"} height={"150"} />
+        ) : (
+          <>
+            <span className={"fa-stack fa-2x mt-3 mb-2"}>
+              <i className={"fas fa-circle fa-stack-2x"}></i>
+              <i className={"fas fa-store fa-stack-1x fa-inverse"}></i>
+            </span>
+            <h5 className={"text-center"}>Upload your photo</h5>
+          </>
+        )}
+        <input
+          type={"file"}
+          id={"upload-button"}
+          onChange={handleImageChange(setProfileImage)}
+        />
+        <Form>
+          <FormGroup>
+            <Label for={"ID"}>ID</Label>
+            <Input
+              innerRef={IDRef}
+              value={ID}
+              onChange={handleStringChange(setID)}
+              type={"text"}
+              name={"ID"}
+              id={"ID"}
+              placeholder={"4글자 이상 20자 미만으로 입력하세요."}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for={"PW"}>PW</Label>
+            <Input
+              value={PW}
+              onChange={handleStringChange(setPW)}
+              type={"password"}
+              name={"PW"}
+              id={"PW"}
+              placeholder={"4글자 이상 20자 미만으로 입력하세요."}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for={"PW_Confirm"}>PW Confirm</Label>
+            <Input
+              value={PWConfirm}
+              onChange={handleStringChange(setPWConfirm)}
+              type={"password"}
+              name={"PW_Confirm"}
+              id={"PW_Confirm"}
+              placeholder={"비밀번호를 확인하세요."}
+            />
+          </FormGroup>
+          <Label>이름</Label>
+          <FormGroup>
+            <Input
+              value={LastName}
+              onChange={handleStringChange(setLastName)}
+              type={"text"}
+              name={"LastName"}
+              id={"LastName"}
+              placeholder={"성"}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Input
+              value={FirstName}
+              onChange={handleStringChange(setFirstName)}
+              type={"text"}
+              name={"FirstName"}
+              id={"FirstName"}
+              placeholder={"이름"}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for={"Email"}>이메일 주소</Label>
+            <Input
+              value={Email}
+              onChange={handleStringChange(setEmail)}
+              type={"email"}
+              name={"Email"}
+              id={"Email"}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for={"Address"}>주소</Label>
+            <Input
+              value={Address}
+              onChange={handleStringChange(setAddress)}
+              type={"text"}
+              name={"Address"}
+              id={"Address"}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for={"PhoneNumber"}>핸드폰 번호</Label>
+            <Input
+              value={PhoneNumber}
+              onChange={handleStringChange(setPhoneNumber)}
+              type={"text"}
+              name={"PhoneNumber"}
+              id={"PhoneNumber"}
+            />
+          </FormGroup>
+          <Button color={"primary"} type={"submit"} onClick={handleSubmit}>
+            가입
+          </Button>
+        </Form>
+      </Container>
+    </>
   );
 }
