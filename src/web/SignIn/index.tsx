@@ -53,8 +53,6 @@ export default function SignIn() {
 
   const handleStringChange = handleChange(e => e.currentTarget.value);
 
-  console.log("dd");
-
   return (
     <>
       <TopNavbar />
