@@ -6,5 +6,6 @@ export default {
   SignInRequest : `${rootURL}/SignIn`,
   SignOutRequest : `${rootURL}/SignOut`,
   SignUpRequest : `${rootURL}/SignUp`,
-  URLRegister: `${rootURL}/URL-Register`
+  URLRegister: `${rootURL}/URL-Register`,
+  URLRegister_Add : `${rootURL}/URL-Register/Add`
 };

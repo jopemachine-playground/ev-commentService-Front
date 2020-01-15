@@ -69,7 +69,28 @@ export default function URLRegister() {
     , []);
 
   const addService = (blogTitle: string, blogURL: string) => {
-  
+    const formData = new FormData();
+    formData.append("token", token);
+    formData.append("blogTitle", blogTitle);
+    formData.append("blogURL", blogURL);
+
+    const headerConfig = {
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      }
+    };
+
+    axios
+      .post(API.URLRegister_Add, formData, headerConfig)
+      .then(res => {
+        if(res.data.VALID)
+          alert("서비스 추가에 성공하였습니다.");
+        else 
+          alert("중복된 URL이 존재합니다!\n 서비스 관리자에게 문의하세요!");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   const deleteService = () => {
