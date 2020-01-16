@@ -13,7 +13,7 @@ export default function URLRegister() {
 
   const history = useHistory();
   const [token, setTokenSession] = useLocalStorage('token', null);
-  const [entrys, setEntrys] = useState([]);
+  const [entrys, setEntrys] = useState();
   const [blogURL, setBlogURL] = useState<string>("");
   const [blogTitle, setBlogTitle] = useState<string>("");
 
@@ -60,7 +60,7 @@ export default function URLRegister() {
 
       axios.post(API.URLRegister, formData, headerConfig)
         .then(res => {
-          setEntrys([]);
+          setEntrys(res.data);
         })
         .catch(err => {
            history.push("/SignIn");
@@ -83,30 +83,34 @@ export default function URLRegister() {
     axios
       .post(API.URLRegister_Add, formData, headerConfig)
       .then(res => {
-        if(res.data.VALID)
+        if(res.data.VALID) {
           alert("서비스 추가에 성공하였습니다.");
-        else 
-          alert("중복된 URL이 존재합니다!\n 서비스 관리자에게 문의하세요!");
+          window.location.reload();
+        }
+        else {
+          alert("중복된 URL이 존재합니다!\n서비스 관리자에게 문의하세요!");
+          setBlogURL("");
+          setBlogTitle("");
+        }
+        modal.setModal(false);
       })
       .catch(err => {
         console.log(err);
       });
   };
 
-  const deleteService = () => {
-
-  };
-
   return (
     <>
       <TopNavbar icons={[{ iconStr: "Add Service", clickHandler: () => modal.setModal(true) }]} />
-      <Container id={"themed-container"} fluid={"sm"}>
-        {entrys.map((entry, index) => (
+      <Container id={"themed-container"} fluid={"sm"} >
+        <div style={{marginBottom: 15}} />
+        {entrys && entrys.map((entry, index) => (
           <Entry
             key={index}
-            blogTitle={"entry.blogTitle"}
-            blogID={""}
-            blogURL={""}
+            token={token}
+            blogTitle={entry.URLTitle}
+            blogID={entry.URLID}
+            blogURL={entry.URL}
           />
         ))}
       </Container>
