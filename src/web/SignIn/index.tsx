@@ -29,7 +29,7 @@ export default function SignIn() {
       formData.append('ID', ID);
       formData.append('PW', PW);
 
-      fetch(API.SignInRequest, { method: 'post', body: formData })
+      fetch(API.SignIn, { method: 'post', body: formData })
         .then(res => res.json())
         .then(res => {
           if(res.VALID){

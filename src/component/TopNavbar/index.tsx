@@ -13,6 +13,10 @@ import {
   NavbarText
 } from "reactstrap";
 
+const fixedNavbarIconsStyle = {
+  marginRight: 15
+};
+
 export interface TopFixedIcon {
   iconStr: string;
   clickHandler: any;
@@ -81,7 +85,7 @@ export default function TopNavbar(props) {
           {FixedIcons &&
             FixedIcons.map((topFixedIcon, index) => {
               return (
-                <NavbarText key={index} onClick={topFixedIcon.clickHandler}>
+                <NavbarText key={index} onClick={topFixedIcon.clickHandler} style={fixedNavbarIconsStyle}>
                   {topFixedIcon.iconStr}
                 </NavbarText>
               );

@@ -87,7 +87,7 @@ export default function SignUp() {
       formData.append('Gender', Gender);
       formData.append('ProfileImage', ProfileImage.raw);
 
-      axios.post(API.SignUpRequest, formData, headerConfig)
+      axios.post(API.SignUp, formData, headerConfig)
         .then(res => {
           if(res.data.SUCCESS) {
             alert('회원가입에 성공하였습니다!');
