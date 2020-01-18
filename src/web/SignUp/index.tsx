@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect, createRef } from "react";
-import { Alert, Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
+import { Alert, Form, FormGroup, Label, Input, Button, ButtonGroup, Container } from "reactstrap";
 import axios from "axios";
 import "./SignUp.css";
 import _ from "underscore";
@@ -13,28 +12,60 @@ export default function SignUp() {
 
   const history = useHistory();
 
+  const IDRef = createRef<HTMLInputElement>();
+  const PWRef = createRef<HTMLInputElement>();
+  const PWConfirmRef = createRef<HTMLInputElement>();
+  const LastNameRef = createRef<HTMLInputElement>();
+  const FirstNameRef = createRef<HTMLInputElement>();
+  const EmailRef = createRef<HTMLInputElement>();
+  const AddressRef = createRef<HTMLInputElement>();
+  const PhoneNumberRef = createRef<HTMLInputElement>();
+
+  const [Gender, setGender] = useState<string>("");
+  const [ProfileImage, setProfileImage] = useState({ preview: '', raw: '' });
   const [AlertVisble, setAlertVisible] = useState<boolean>(true);
 
-  const [ID, setID] = useState<string>("");
-  const IDRef = createRef<HTMLInputElement>();
-  
-  const [PW, setPW] = useState<string>("");
-  const [PWConfirm, setPWConfirm] = useState<string>("");
-  const [LastName, setLastName] = useState<string>("");
-  const [FirstName, setFirstName] = useState<string>("");
-  const [Email, setEmail] = useState<string>("");
-  const [Address, setAddress] = useState<string >("");
-  const [PhoneNumber, setPhoneNumber] = useState<string>("");
-  const [Gender, setGender] = useState<string>("");
-
-  const [ProfileImage, setProfileImage] = useState({ preview: '', raw: '' });
-
+  const allInputRefs : Map<string, any> =
+    new Map([
+      ["ID", IDRef], 
+      ["PW", PWRef], 
+      ["PW_Confirm", PWConfirmRef], 
+      ["LastName", LastNameRef], 
+      ["FirstName", FirstNameRef], 
+      ["Email", EmailRef],
+      ["Address", AddressRef],
+      ["PhoneNumber", PhoneNumberRef]
+    ]);
+    
   useEffect(() => {
     IDRef.current!.focus();
   }, []);
 
+  const handleOnKeyPress = e => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+
+      let end = false;
+
+      try {
+        allInputRefs.forEach(inputRef => {
+          if (end) {
+            allInputRefs.get(inputRef.current.name).current.focus();
+            throw new Error("break");
+          }
+          e.target.name === inputRef.current.name && (end = true);
+        });
+        // eslint-disable-next-line no-empty
+      } catch (e) {}
+    }
+  };
+
   const validateForm = () => {
-    return ID.length > 0 && PW.length > 0 && PW === PWConfirm;
+    return (
+      IDRef.current!.value.length > 0 &&
+      PWRef.current!.value.length > 0 &&
+      PWRef.current!.value === PWConfirmRef.current!.value
+    );
   }
 
   const handleSubmit = (event) => {
@@ -49,13 +80,10 @@ export default function SignUp() {
       };
 
       const formData = new FormData();
-      formData.append('ID', ID);
-      formData.append('PW', PW);
-      formData.append('LastName', LastName);
-      formData.append('FirstName', FirstName);
-      formData.append('Email', Email);
-      formData.append('Address', Address);
-      formData.append('PhoneNumber', PhoneNumber);
+      allInputRefs.forEach((inputRef) => {
+        formData.append(inputRef.current.name, inputRef.current.value);
+      });
+
       formData.append('Gender', Gender);
       formData.append('ProfileImage', ProfileImage.raw);
 
@@ -72,7 +100,6 @@ export default function SignUp() {
             alert('파일 크기가 16MB를 초과하였습니다.');
           }
         });
-
       return true;
     };
     validateForm() && signUp() || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
@@ -86,6 +113,8 @@ export default function SignUp() {
   );
 
   const handleStringChange = handleChange(e => e.currentTarget.value);
+
+  const handleGenderChange = handleChange(e => e.currentTarget.innerHTML);
 
   const handleImageChange = handleChange(
     e => { return { preview: URL.createObjectURL(e.target.files[0]), raw: e.target.files[0]} });
@@ -122,8 +151,7 @@ export default function SignUp() {
             <Label for={"ID"}>ID</Label>
             <Input
               innerRef={IDRef}
-              value={ID}
-              onChange={handleStringChange(setID)}
+              onKeyDown={handleOnKeyPress}
               type={"text"}
               name={"ID"}
               id={"ID"}
@@ -133,8 +161,8 @@ export default function SignUp() {
           <FormGroup>
             <Label for={"PW"}>PW</Label>
             <Input
-              value={PW}
-              onChange={handleStringChange(setPW)}
+              innerRef={PWRef}
+              onKeyDown={handleOnKeyPress}
               type={"password"}
               name={"PW"}
               id={"PW"}
@@ -144,8 +172,8 @@ export default function SignUp() {
           <FormGroup>
             <Label for={"PW_Confirm"}>PW Confirm</Label>
             <Input
-              value={PWConfirm}
-              onChange={handleStringChange(setPWConfirm)}
+              innerRef={PWConfirmRef}
+              onKeyDown={handleOnKeyPress}
               type={"password"}
               name={"PW_Confirm"}
               id={"PW_Confirm"}
@@ -155,8 +183,8 @@ export default function SignUp() {
           <Label>이름</Label>
           <FormGroup>
             <Input
-              value={LastName}
-              onChange={handleStringChange(setLastName)}
+              innerRef={LastNameRef}
+              onKeyDown={handleOnKeyPress}
               type={"text"}
               name={"LastName"}
               id={"LastName"}
@@ -165,8 +193,8 @@ export default function SignUp() {
           </FormGroup>
           <FormGroup>
             <Input
-              value={FirstName}
-              onChange={handleStringChange(setFirstName)}
+              innerRef={FirstNameRef}
+              onKeyDown={handleOnKeyPress}
               type={"text"}
               name={"FirstName"}
               id={"FirstName"}
@@ -176,8 +204,8 @@ export default function SignUp() {
           <FormGroup>
             <Label for={"Email"}>이메일 주소</Label>
             <Input
-              value={Email}
-              onChange={handleStringChange(setEmail)}
+              innerRef={EmailRef}
+              onKeyDown={handleOnKeyPress}
               type={"email"}
               name={"Email"}
               id={"Email"}
@@ -186,8 +214,8 @@ export default function SignUp() {
           <FormGroup>
             <Label for={"Address"}>주소</Label>
             <Input
-              value={Address}
-              onChange={handleStringChange(setAddress)}
+              innerRef={AddressRef}
+              onKeyDown={handleOnKeyPress}
               type={"text"}
               name={"Address"}
               id={"Address"}
@@ -196,12 +224,19 @@ export default function SignUp() {
           <FormGroup>
             <Label for={"PhoneNumber"}>핸드폰 번호</Label>
             <Input
-              value={PhoneNumber}
-              onChange={handleStringChange(setPhoneNumber)}
+              innerRef={PhoneNumberRef}
+              onKeyDown={handleOnKeyPress}
               type={"text"}
               name={"PhoneNumber"}
               id={"PhoneNumber"}
             />
+          </FormGroup>
+          <FormGroup>
+            <ButtonGroup>
+              <Label for={"Gender"} style={{marginRight: 10}}>성별</Label>
+              <Button onClick={handleGenderChange(setGender)}>남자</Button>
+              <Button onClick={handleGenderChange(setGender)}>여자</Button>
+            </ButtonGroup>
           </FormGroup>
           <Button color={"primary"} type={"submit"} onClick={handleSubmit}>
             가입
