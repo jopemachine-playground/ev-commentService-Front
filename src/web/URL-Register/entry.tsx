@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import { Container, Jumbotron, Button } from "reactstrap";
-import { useLocalStorage } from "../../LocalStorage";
 import axios from "axios";
 import API from "../API";
 

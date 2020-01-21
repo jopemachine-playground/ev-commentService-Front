@@ -1,13 +1,13 @@
 import React, {useState, useEffect, useContext} from "react";
 import { Container, Jumbotron, Input, Label } from "reactstrap";
 import { useHistory } from "react-router";
-import { useLocalStorage } from "../../LocalStorage";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import _ from "underscore";
 import axios from "axios";
 import API from "../API";
 import Entry from "./entry";
 import TopNavbar from '../../component/TopNavbar'
-import { useModal } from "../../component/Modalbox";
+import { useModal } from "../../hooks/useModal";
 
 export default function URLRegister() {
   const history = useHistory();

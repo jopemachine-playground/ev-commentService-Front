@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, createRef } from "react";
-import { Alert, Form, FormGroup, Label, Input, Button, ButtonGroup, Container } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, ButtonGroup, Container } from "reactstrap";
 import axios from "axios";
 import "./UserEdit.css";
 import _ from "underscore";
@@ -7,7 +7,7 @@ import API from "../API";
 import { useHistory } from "react-router";
 import * as R from "ramda";
 import TopNavbar from '../../component/TopNavbar'
-import { useLocalStorage } from "../../LocalStorage";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 export default function UserEdit() {
 
@@ -24,7 +24,6 @@ export default function UserEdit() {
 
   const [Gender, setGender] = useState<string>("");
   const [ProfileImage, setProfileImage] = useState({ preview: '', raw: '' });
-  const [AlertVisble, setAlertVisible] = useState<boolean>(true);
   
   const [token, setTokenSession] = useLocalStorage('token', null);
 
@@ -63,7 +62,7 @@ export default function UserEdit() {
           key === "Email") && (allInputRefs.get(key).current.value = value);
         });
 
-        setProfileImage({preview: " ", raw: res[0].ProfileImage});
+        setProfileImage({preview: API.Root + "/profileImages/" + res[0].ProfileImageName, raw: ''});
       })
       .catch(error => console.log(error));
   }, []);
@@ -98,7 +97,7 @@ export default function UserEdit() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    let signUp = () => {
+    let userEdit = () => {
       const headerConfig = {
         headers: {
           'content-type': 'multipart/form-data',
@@ -112,16 +111,14 @@ export default function UserEdit() {
       });
 
       formData.append('Gender', Gender);
-      formData.append('ProfileImage', ProfileImage.raw);
+      
+      if(ProfileImage.raw !== '') formData.append('ProfileImage', ProfileImage.raw);
 
-      axios.post(API.SignUp, formData, headerConfig)
+      axios.post(API.UserEdit, formData, headerConfig)
         .then(res => {
           if(res.data.SUCCESS) {
-            alert('회원가입에 성공하였습니다!');
-            history.push('/SignIn');
-          }
-          else if (res.data.DUP_ENTRY) {
-            alert('중복된 ID 입니다.');
+            alert('정보 변경에 성공했습니다!');
+            history.push('/URL-Register');
           }
           else if(res.data.FILE_SIZE_OVER) {
             alert('파일 크기가 16MB를 초과하였습니다.');
@@ -129,7 +126,7 @@ export default function UserEdit() {
         });
       return true;
     };
-    validateForm() && signUp() || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
+    validateForm() && userEdit() || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
   }
 
   const handleChange = R.curry((
@@ -150,15 +147,8 @@ export default function UserEdit() {
     <>
       <TopNavbar />
       <Container id={"themed-container"} fluid={"sm"}>
-        <Alert
-          color={"primary"}
-          isOpen={AlertVisble}
-          toggle={() => setAlertVisible(false)}
-        >
-          <strong>* </strong> 란은 필수입니다.
-        </Alert>
         {ProfileImage.preview ? (
-          <img src={ProfileImage.raw} width={"150"} height={"150"} />
+          <img src={ProfileImage.preview} width={"150"} height={"150"} />
         ) : (
           <>
             <span className={"fa-stack fa-2x mt-3 mb-2"}>

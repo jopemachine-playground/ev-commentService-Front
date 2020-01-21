@@ -4,7 +4,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import "./SignIn.css";
 import API from "../API";
 import axios from "axios";
-import { useLocalStorage } from "../../LocalStorage";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import * as R from "ramda";
 import TopNavbar from '../../component/TopNavbar'
 
