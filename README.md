@@ -1,44 +1,90 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+    <a href="https://ev-commentService.ga">
+    Emotion Visualization Comment Service
+  </a>
+</h1>
 
-## Available Scripts
+Emotion Visualization Comment Service is project for practice making a web service.
 
-In the project directory, you can run:
+## ⛷️ Relative Projects
 
-### `npm start`
+- [**Renewal Front**][front] : It was refactoring version of 'ev-commentService'. It is based on React. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [**Renewal Backend**][backend] : It was refactoring version of 'ev-commentService'. It is based on NodeJS. 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- [**ev-commentService**][php] : PHP Service for providing component service.  
 
-### `npm test`
+- [**ev-backend**][django] : It is based on Django and includes an emotional analysis module based on konlpy and tensorflow.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [**ev-sentimentalAnalysis**][mod] : This is a comment analysis module within the server.
 
-### `npm run build`
+[front]: https://github.com/jopemachine/ev-commentService-Front
+[backend]: https://github.com/jopemachine/ev-commentService-Backend
+[php]: https://github.com/cnu-ev/ev-commentService
+[django]: https://github.com/cnu-ev/ev-backend
+[mod]: https://github.com/cnu-ev/ev-sentiment_analysis
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📋 Asset source
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+All svg files used in project are downloaded at [featherIcon][featherIcon]
 
-### `npm run eject`
+[featherIcon]: https://feathericons.com
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##  ✔️ Development Environment Details
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* Overall dependency
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+> react
+> 
+> reactstrap
+>
+> ramda
 
-## Learn More
+## 🏄 How to use
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+'Jekyll-Script.html' is Client's component file that allows users to easily add 'ev-comment-service' to their own Jekyll based blogs.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The procedure for registering on a Jekyll based blog is as follows.
+
+```
+1 - Signup and signin https://evcommentservice.ga, Register your blog's URL to service. 
+
+The form of the URL must be the same as right. (https:{domain}.ga)
+
+2 - In your Jekyll blog, Add the following settings to the '_config.yml'. 
+
+User ID is the same one that joined above.
+
+ev_username: {User ID}
+
+3 - Download and include Jekyll-Script.html to your post layout or the page you want.
+(Add {% include EV-Script.html %} or paste the script directly)
+
+4 - Create div tag that iframe tag will be it's child, and set it's id 'EV-Start'
+```
+
+Bloggers can decide whether or not to apply an emotional analysis service to his blog comment service and how it will be styled.  
+
+The usage is as follows.
+
+(below ev_mode is 'full' for default)
+
+```
+Set one of the follwing values in the 'ev_mode' in your _config.yml
+
+ev_username: { full, binary, none, debug }
+
+full : Depending on the negative-positive degree of the comments, 
+comment's color style is divided into 10 stages
+
+binary : Depending on the negative-positive degree of the comments, 
+comment's color style is divided into 3 stages (Positive, Negative, Neutral)
+
+none : Emotional analysis styles were not indicated. 
+
+debug : Do not use emotional analysis service
+```
+
+## ❗ Screen shots
