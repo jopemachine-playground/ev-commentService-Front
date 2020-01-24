@@ -90,19 +90,19 @@ export default function SignUp() {
       axios.post(API.SignUp, formData, headerConfig)
         .then(res => {
           if(res.data.SUCCESS) {
-            alert('회원가입에 성공하였습니다!');
+            alert('You have successfully joined the membership!');
             history.push('/SignIn');
           }
           else if (res.data.DUP_ENTRY) {
-            alert('중복된 ID 입니다.');
+            alert('Duplicate ID!');
           }
           else if(res.data.FILE_SIZE_OVER) {
-            alert('파일 크기가 16MB를 초과하였습니다.');
+            alert('File size exceeded 16MB.');
           }
         });
       return true;
     };
-    validateForm() && signUp() || alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
+    validateForm() && signUp() || alert("The information given does not match");
   }
 
   const handleChange = R.curry((
@@ -128,7 +128,7 @@ export default function SignUp() {
           isOpen={AlertVisble}
           toggle={() => setAlertVisible(false)}
         >
-          <strong>* </strong> 란은 필수입니다.
+          <strong>* </strong> marked forms are required
         </Alert>
         {ProfileImage.preview ? (
           <img src={ProfileImage.preview} width={"150"} height={"150"} />
@@ -155,7 +155,7 @@ export default function SignUp() {
               type={"text"}
               name={"ID"}
               id={"ID"}
-              placeholder={"4글자 이상 20자 미만으로 입력하세요."}
+              placeholder={"Please enter at least 4 characters and no more than 20 characters."}
             />
           </FormGroup>
           <FormGroup>
@@ -166,7 +166,7 @@ export default function SignUp() {
               type={"password"}
               name={"PW"}
               id={"PW"}
-              placeholder={"4글자 이상 20자 미만으로 입력하세요."}
+              placeholder={"Please enter at least 4 characters and no more than 20 characters."}
             />
           </FormGroup>
           <FormGroup>
@@ -177,10 +177,10 @@ export default function SignUp() {
               type={"password"}
               name={"PW_Confirm"}
               id={"PW_Confirm"}
-              placeholder={"비밀번호를 확인하세요."}
+              placeholder={"Confirm your password"}
             />
           </FormGroup>
-          <Label>이름</Label>
+          <Label>Name</Label>
           <FormGroup>
             <Input
               innerRef={LastNameRef}
@@ -188,7 +188,7 @@ export default function SignUp() {
               type={"text"}
               name={"LastName"}
               id={"LastName"}
-              placeholder={"성"}
+              placeholder={"Last Name"}
             />
           </FormGroup>
           <FormGroup>
@@ -198,11 +198,11 @@ export default function SignUp() {
               type={"text"}
               name={"FirstName"}
               id={"FirstName"}
-              placeholder={"이름"}
+              placeholder={"First Name"}
             />
           </FormGroup>
           <FormGroup>
-            <Label for={"Email"}>이메일 주소</Label>
+            <Label for={"Email"}>Email</Label>
             <Input
               innerRef={EmailRef}
               onKeyDown={handleOnKeyPress}
@@ -212,7 +212,7 @@ export default function SignUp() {
             />
           </FormGroup>
           <FormGroup>
-            <Label for={"Address"}>주소</Label>
+            <Label for={"Address"}>Address</Label>
             <Input
               innerRef={AddressRef}
               onKeyDown={handleOnKeyPress}
@@ -222,7 +222,7 @@ export default function SignUp() {
             />
           </FormGroup>
           <FormGroup>
-            <Label for={"PhoneNumber"}>핸드폰 번호</Label>
+            <Label for={"PhoneNumber"}>Phone number</Label>
             <Input
               innerRef={PhoneNumberRef}
               onKeyDown={handleOnKeyPress}
@@ -233,13 +233,13 @@ export default function SignUp() {
           </FormGroup>
           <FormGroup>
             <ButtonGroup>
-              <Label for={"Gender"} style={{marginRight: 10}}>성별</Label>
-              <Button onClick={handleGenderChange(setGender)}>남자</Button>
-              <Button onClick={handleGenderChange(setGender)}>여자</Button>
+              <Label for={"Gender"} style={{marginRight: 10}}>Gender</Label>
+              <Button onClick={handleGenderChange(setGender)}>Man</Button>
+              <Button onClick={handleGenderChange(setGender)}>Woman</Button>
             </ButtonGroup>
           </FormGroup>
           <Button color={"primary"} type={"submit"} onClick={handleSubmit}>
-            가입
+            Submit
           </Button>
         </Form>
       </Container>

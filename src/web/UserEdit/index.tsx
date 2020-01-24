@@ -106,6 +106,8 @@ export default function UserEdit() {
       };
 
       const formData = new FormData();
+      formData.append('token', token);
+      
       allInputRefs.forEach((inputRef) => {
         formData.append(inputRef.current.name, inputRef.current.value);
       });
@@ -117,11 +119,11 @@ export default function UserEdit() {
       axios.post(API.UserEdit, formData, headerConfig)
         .then(res => {
           if(res.data.SUCCESS) {
-            alert('정보 변경에 성공했습니다!');
-            history.push('/URL-Register');
+            alert('Your Information change succeeded!');
+            window.location.reload();
           }
           else if(res.data.FILE_SIZE_OVER) {
-            alert('파일 크기가 16MB를 초과하였습니다.');
+            alert('File size exceeded 16MB.');
           }
         });
       return true;
@@ -172,7 +174,7 @@ export default function UserEdit() {
               type={"text"}
               name={"ID"}
               id={"ID"}
-              placeholder={"4글자 이상 20자 미만으로 입력하세요."}
+              placeholder={"Please enter at least 4 characters and no more than 20 characters."}
             />
           </FormGroup>
           <FormGroup>
@@ -183,7 +185,7 @@ export default function UserEdit() {
               type={"password"}
               name={"PW"}
               id={"PW"}
-              placeholder={"4글자 이상 20자 미만으로 입력하세요."}
+              placeholder={"Please enter at least 4 characters and no more than 20 characters."}
             />
           </FormGroup>
           <FormGroup>
@@ -194,33 +196,33 @@ export default function UserEdit() {
               type={"password"}
               name={"PW_Confirm"}
               id={"PW_Confirm"}
-              placeholder={"비밀번호를 확인하세요."}
+              placeholder={"Confirm your password"}
             />
           </FormGroup>
           <FormGroup>
-            <Label for={"LastName"}>성</Label>
+            <Label for={"LastName"}>Last Name</Label>
             <Input
               innerRef={LastNameRef}
               onKeyDown={handleOnKeyPress}
               type={"text"}
               name={"LastName"}
               id={"LastName"}
-              placeholder={"성"}
+              placeholder={"Last Name"}
             />
           </FormGroup>
           <FormGroup>
-            <Label for={"FirstName"}>이름</Label>
+            <Label for={"FirstName"}>First Name</Label>
             <Input
               innerRef={FirstNameRef}
               onKeyDown={handleOnKeyPress}
               type={"text"}
               name={"FirstName"}
               id={"FirstName"}
-              placeholder={"이름"}
+              placeholder={"First Name"}
             />
           </FormGroup>
           <FormGroup>
-            <Label for={"Email"}>이메일 주소</Label>
+            <Label for={"Email"}>Email</Label>
             <Input
               innerRef={EmailRef}
               onKeyDown={handleOnKeyPress}
@@ -230,7 +232,7 @@ export default function UserEdit() {
             />
           </FormGroup>
           <FormGroup>
-            <Label for={"Address"}>주소</Label>
+            <Label for={"Address"}>Address</Label>
             <Input
               innerRef={AddressRef}
               onKeyDown={handleOnKeyPress}
@@ -240,7 +242,7 @@ export default function UserEdit() {
             />
           </FormGroup>
           <FormGroup>
-            <Label for={"PhoneNumber"}>핸드폰 번호</Label>
+            <Label for={"PhoneNumber"}>Phone number</Label>
             <Input
               innerRef={PhoneNumberRef}
               onKeyDown={handleOnKeyPress}
@@ -251,13 +253,13 @@ export default function UserEdit() {
           </FormGroup>
           <FormGroup>
             <ButtonGroup>
-              <Label for={"Gender"} style={{marginRight: 10}}>성별</Label>
-              <Button onClick={handleGenderChange(setGender)}>남자</Button>
-              <Button onClick={handleGenderChange(setGender)}>여자</Button>
+              <Label for={"Gender"} style={{marginRight: 10}}>Gender</Label>
+              <Button onClick={handleGenderChange(setGender)}>Man</Button>
+              <Button onClick={handleGenderChange(setGender)}>Woman</Button>
             </ButtonGroup>
           </FormGroup>
           <Button color={"primary"} type={"submit"} onClick={handleSubmit}>
-            가입
+            Submit
           </Button>
         </Form>
       </Container>

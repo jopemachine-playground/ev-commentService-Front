@@ -21,14 +21,14 @@ export default function URLRegister() {
     modalBody: (
       <>
         <p>
-          <strong>*</strong> Jekyll 기반의 블로그를 추가해주세요!
+          <strong>*</strong> Add a Jekyll-based blog!
         </p>
         <Label for={"blogTitle"}>Title: </Label>
         <Input
           id={"blogTitle"}
           type={"text"}
           value={blogTitle}
-          placeholder={"서비스할 블로그의 Title을 입력하세요."}
+          placeholder={"Enter the title of the blog to be serviced."}
           onChange={e => setBlogTitle(e.currentTarget.value)}
           style={{ marginBottom: 15 }}
         />
@@ -37,7 +37,7 @@ export default function URLRegister() {
           id={"blogURL"}
           type={"text"}
           value={blogURL}
-          placeholder={"서비스할 블로그의 URL을 입력하세요."}
+          placeholder={"Enter the URL of the blog to be serviced."}
           onChange={e => setBlogURL(e.currentTarget.value)}
         />
       </>
@@ -84,10 +84,10 @@ export default function URLRegister() {
       .post(API.URLRegister_Add, formData, headerConfig)
       .then(res => {
         if (res.data.VALID) {
-          alert("서비스 추가에 성공하였습니다.");
+          alert("Add service succeeded.");
           window.location.reload();
         } else {
-          alert("중복된 URL이 존재합니다!\n서비스 관리자에게 문의하세요!");
+          alert("Duplicate URL exists.\nPlease contact your service manager");
           setBlogURL("");
           setBlogTitle("");
         }

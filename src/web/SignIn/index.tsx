@@ -36,7 +36,7 @@ export default function SignIn() {
             setTokenSession(res.token);
             history.push("URL-Register");
           }
-          else alert("ID나 비밀번호의 형식이 일치하지 않습니다.");
+          else alert("The format of the ID or password does not match.");
         })
         .catch(error => console.log(error));
     };
@@ -62,7 +62,7 @@ export default function SignIn() {
             Login
           </p>
           <p id={"Title-lead"} className={"lead"}>
-            감정 분석 댓글 서비스를 이용하기 위해 로그인하세요.
+            Log in to use the emotional analysis comment service.
           </p>
           <Form>
             <FormGroup>
@@ -90,7 +90,7 @@ export default function SignIn() {
           </Form>
 
           <Button color={"primary"} type={"submit"} onClick={handleSubmit}>
-            로그인
+            Login
           </Button>
           <NavLink
             id={"AnchorForSignUp"}
