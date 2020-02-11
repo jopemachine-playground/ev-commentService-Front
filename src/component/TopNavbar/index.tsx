@@ -32,7 +32,7 @@ export default function TopNavbar(props) {
   return (
     <>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">감정분석 댓글 서비스</NavbarBrand>
+        <NavbarBrand href="/">Emotional Analysis Comment Service</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>

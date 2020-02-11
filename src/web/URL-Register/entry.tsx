@@ -12,7 +12,7 @@ const style = {
   }
 }
 
-function entry({ token, blogTitle, blogURL, blogID }) {  
+function entry({ token, blogTitle, blogURL, blogID, history }) {  
 
   const deleteService = () => {
     const formData = new FormData();
@@ -29,7 +29,7 @@ function entry({ token, blogTitle, blogURL, blogID }) {
     axios
       .post(API.URLRegister_Delete, formData, headerConfig)
       .then(res => {
-        alert("서비스가 성공적으로 삭제되었습니다!");
+        alert("The service was deleted successfully.");
         window.location.reload();
       })
       .catch(err => {
@@ -43,11 +43,17 @@ function entry({ token, blogTitle, blogURL, blogID }) {
         <h1 className="display-3">{blogTitle}</h1>
         <hr />
         <p className="lead">{blogURL}</p>
-        <Button color="primary" style={{ marginRight: 10 }}>
-          댓글 분석 페이지로 이동
+        <Button
+          color="primary"
+          onClick={() => {
+            history.push("/CommentManagementService");
+          }}
+          style={{ marginRight: 10 }}
+        >
+          Go to comment analysis page
         </Button>
         <Button color="danger" onClick={deleteService}>
-          서비스 삭제
+          Delete service
         </Button>
       </Container>
     </Jumbotron>

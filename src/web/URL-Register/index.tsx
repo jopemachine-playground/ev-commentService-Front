@@ -17,7 +17,7 @@ export default function URLRegister() {
   const [blogTitle, setBlogTitle] = useState<string>("");
 
   const modal = useModal({
-    modalTitle: "새 서비스 추가",
+    modalTitle: "Add New Service",
     modalBody: (
       <>
         <p>
@@ -42,8 +42,8 @@ export default function URLRegister() {
         />
       </>
     ),
-    yesBtn: "서비스 생성",
-    noBtn: "취소",
+    yesBtn: "Create",
+    noBtn: "Cancel",
     yesBtnHandler: () => addService(blogTitle, blogURL)
   });
 
@@ -116,6 +116,7 @@ export default function URLRegister() {
               blogTitle={entry.URLTitle}
               blogID={entry.URLID}
               blogURL={entry.URL}
+              history={history}
             />
           ))}
       </Container>
