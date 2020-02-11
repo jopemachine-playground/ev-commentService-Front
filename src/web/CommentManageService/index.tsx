@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Doughnut } from 'react-chartjs-2';
 import { Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
 import TopNavbar from '../../component/TopNavbar'
@@ -13,6 +13,11 @@ const sectionStyle = {
 export default function CommentManageService(){
 
   const history = useHistory();
+
+  useEffect(() => {
+
+    
+  }, [])
 
   const topNavbarFixedIcons = [
     { iconStr: "Backward", clickHandler: () => history.push("/URL-Register") },

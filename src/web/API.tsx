@@ -9,5 +9,6 @@ export default {
   UserEdit: `${rootURL}/UserEdit/Update`,
   URLRegister: `${rootURL}/URL-Register`,
   URLRegister_Add : `${rootURL}/URL-Register/Add`,
-  URLRegister_Delete: `${rootURL}/URL-Register/Delete`
+  URLRegister_Delete: `${rootURL}/URL-Register/Delete`,
+  URLRegister_RecentComments: `${rootURL}/URL-Register/Fetch/RecentComments`
 };
